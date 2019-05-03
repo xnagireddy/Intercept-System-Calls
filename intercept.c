@@ -7,14 +7,13 @@
 
 MODULE_LICENSE("GPL");
 
-// IOCTL commands
 #define IOCTL_PATCH_TABLE 0x00000001
 #define IOCTL_FIX_TABLE 0x00000004
 
-//Global variables
 int in_use = 0;	//set to 1 in open handler and reset to zero in release handler
 int is_set = 0; // flag to detect system call interception
-unsigned long *sys_call_table = (unsigned long*)0xffffffff81801400; //hard coded address of sys_call_table from /boot/System.map
+// unsigned long *sys_call_table = (unsigned long*)0xffffffff81801400; //hard coded address of sys_call_table from /boot/System.map
+unsigned long *sys_call_table = (unsigned long*)0xffffffff81a00200;
 
 //function pointer to original sys_open
 asmlinkage int (*real_open)(const char* __user, int, int);
@@ -137,3 +136,4 @@ static void __exit cleanup_my_module(void)
 
 module_init(init_my_module);
 module_exit(cleanup_my_module);
+

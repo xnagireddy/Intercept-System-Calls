@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 
 /* Define ioctl commands */
@@ -13,10 +14,11 @@
 int main(void)
 {
    int device = open("/dev/MyDevice", O_RDWR);
-   printf("%d\n",device);
+   printf("device: [%d]\n", device);
    ioctl(device, IOCTL_PATCH_TABLE);
    sleep(2);
    ioctl(device, IOCTL_FIX_TABLE);
    close(device);
    return 0;
 }
+
