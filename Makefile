@@ -8,6 +8,15 @@ all:
 	make -C $(KDIR) M=$(PWD) modules
 	gcc test.c -o test
 
+install:
+	sudo dmesg -c
+	sudo insmod intercept.ko
+	sudo ./test 1
+
+uninstall:
+	sudo ./test 4
+	sudo rmmod intercept
+
 test:
 	sudo dmesg -C
 	sudo insmod intercept.ko
